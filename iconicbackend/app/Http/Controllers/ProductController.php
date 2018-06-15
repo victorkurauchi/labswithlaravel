@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {
+    protected $repo;
+
+    public function __construct()
+    {
+       // set the model
+       $this->repo = new ProductRepository();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,10 +22,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'name' => 'Abigail',
-            'state' => 'CA'
-        ]);
+        $result = $this->repo->all();
+        return response()->json($result);
     }
 
     /**
