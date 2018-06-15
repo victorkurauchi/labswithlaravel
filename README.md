@@ -31,12 +31,15 @@ Test files are located in ./tests/Unit, so we run from command line
 
 ### SOLID Principals
 
-* Response of controller ProductController must be separated, because its responsability is to know how to respond to requests, in example: Response returning JSON/View/XML
+* Class `Response` of `ProductController` must be separated, because its responsability is to know how to respond to requests, in example: Response returning JSON/View/XML
 
 * Repositories MUST know how to retrieve/persist my data
-  ** Interfaces used to decouple http client choices. In example, product repository uses GuzzleHttpClient, but AnotherRepository could use AnotherHttpClient, so we implement RepositoryInterface.
 
-* Also, the Response Class from Laravel has open/closed principal, because is ready for extension (example for returning responses as TEXT, XML, JSON or other formats you want to create). You don't mofidy the class, you extend and create your format. 
+** Interfaces were used to decouple http client choices. In example, product repository uses GuzzleHttpClient, but AnotherRepository could use AnotherHttpClient, so we implement RepositoryInterface.
 
-* Models is a layer, representing my Entity for persistence.
-In this case, i took a different approach that i enjoy working with: Providing API service to be consumed by other apps, so i'm not creating a Model here.
+* Also, the Response Class from Laravel has open/closed principal, because is ready for extension (example for returning responses for any formats). You don't mofidy the class, you extend and create your format. 
+
+* Model is a layer, representing my Entity for persistence.
+** In this case, i took a different approach that i enjoy working with: Providing API service to be consumed by other apps (preactjs)
+
+* Abstraction of `Exceptions` and `ExceptionHandlers`, allowing to create a fallback response when something fails
