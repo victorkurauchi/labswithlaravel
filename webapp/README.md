@@ -4,7 +4,7 @@
 
 ## Installation
 
-** Clone this repo:**
+**Clone this repo:**
 
 ```sh
 git clone --depth 1 https://github.com/developit/preact-boilerplate.git my-app
@@ -14,7 +14,7 @@ cd my-app
 > :information_source: This re-initializes the repo and sets up your NPM project.
 
 
-** Install the dependencies:**
+**Install the dependencies:**
 
 ```sh
 npm install
@@ -27,7 +27,7 @@ npm install
 ## Development Workflow
 
 
-** Start a live-reload development server:**
+**Start a live-reload development server:**
 
 ```sh
 npm run dev

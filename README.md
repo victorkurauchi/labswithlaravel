@@ -19,6 +19,8 @@ My alternative: working with some external API, i decided for https://developers
 
 `php artisan serve`
 
+`localhost:8000/api/products`
+
 ## API - testing with PHP Unit
 
 Test files are located in ./tests/Unit, so we run from command line
