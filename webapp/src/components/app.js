@@ -6,6 +6,7 @@ import { Router } from 'preact-router';
 import Header from './header';
 import Home from './home';
 import Profile from './profile';
+import BookDetail from './bookdetail';
 
 // let store = createStore();
 
@@ -25,7 +26,7 @@ export default class App extends Component {
         <Router onChange={this.handleRoute}>
           <Home path="/" />
           <Profile path="/profile/" user="me" />
-          <Profile path="/profile/:user" />
+          <BookDetail path="/book/:id" />
         </Router>
       </div>
     );

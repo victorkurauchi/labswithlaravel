@@ -21,14 +21,14 @@ export default class Home extends Component {
   };
 
   setBooks = (books, startIndex = 0, currentPage = 1) => {
-    console.log('set', books)
+    // console.log('set books', books)
     localStorage._books = books;
     this.setState({ books, startIndex, currentPage });
   };
 
   getPreviousPage(startIndex) {
-    console.log('previous page')
-    const currPage = this.state.currentPage - 1
+    // console.log('previous page')
+    // const currPage = this.state.currentPage - 1
     getBooks(this.state.q, this.state.startIndex - 10).then(books => {
       this.setBooks(books, this.state.startIndex - 10, currPage)
     });
@@ -36,8 +36,8 @@ export default class Home extends Component {
 
 
   getNextPage() {
-    console.log(this.state)
-    console.log('next page!', this.state.startIndex + 10, typeof (this.state.startIndex + 10))
+    // console.log(this.state)
+    // console.log('next page!', this.state.startIndex + 10, typeof (this.state.startIndex + 10))
     const currPage = this.state.currentPage + 1
     getBooks(this.state.q, this.state.startIndex + 10).then(books => {
       this.setBooks(books, this.state.startIndex + 10, currPage)

@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style.less';
+import { Link } from 'preact-router';
 
 export default class ListItem extends Component {
   render(props, state) {
@@ -12,7 +13,7 @@ export default class ListItem extends Component {
           <img src={imageLinks ? imageLinks.thumbnail : ''} />
         </div>
         <div>
-          <h1>{volumeInfo.title}</h1>
+          <Link href={`/book/${id}`}><h1>{volumeInfo.title}</h1></Link>
           <h2>by {volumeInfo.authors.join(', ')}</h2>
 
           <p>{searchInfo ? searchInfo.textSnippet : 'No details provided'}</p>
