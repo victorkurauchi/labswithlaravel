@@ -8,7 +8,7 @@ So I implemented an Exception that returns a fallback for me in case my http cal
 
 My alternative: working with some external API, i decided for https://developers.google.com/books/docs/v1/using, because it's a similar concept for this test: Catalog of products (in this case, books)
 
-Webapp running on (https://build-abcelmkitt.now.sh/#)[https://build-abcelmkitt.now.sh/#] with (Zeit Now)[https://zeit.co/now]
+Webapp running on https://build-abcelmkitt.now.sh/# with Zeit Now (https://zeit.co/now)
 
 ## Requirements:
 
