@@ -10,16 +10,16 @@ import Profile from './profile';
 // let store = createStore();
 
 export default class App extends Component {
-	/** Gets fired when the route changes.
-	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
-	 *	@param {string} event.url	The newly routed URL
-	 */
-	handleRoute = e => {
-		this.currentUrl = e.url;
+  /** Gets fired when the route changes.
+   *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
+   *	@param {string} event.url	The newly routed URL
+   */
+  handleRoute = e => {
+    this.currentUrl = e.url;
   };
 
   render() {
-		return (
+    return (
       <div id="app">
         <Header />
         <Router onChange={this.handleRoute}>
@@ -28,6 +28,6 @@ export default class App extends Component {
           <Profile path="/profile/:user" />
         </Router>
       </div>
-		);
-	}
+    );
+  }
 }
