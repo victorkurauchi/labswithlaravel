@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Illuminate\Database\Eloquent\Model;
 use App\Connectors\GuzzleConnector;
 
-class ProductRepository implements RepositoryInterface
+class BooksRepository implements RepositoryInterface
 {
     // model property on class instances
     protected $model;
@@ -14,7 +14,7 @@ class ProductRepository implements RepositoryInterface
     public function __construct()
     {
         $config = [
-            'base_uri' =>  'https://hacker-news.firebaseio.com/v0/',
+            'base_uri' =>  'https://www.googleapis.com/books/v1/',
             'timeout' => 60,
             'stream' => true,
             'headers' => [
@@ -28,7 +28,12 @@ class ProductRepository implements RepositoryInterface
     // Get all instances of model
     public function all($q = null, $startIndex = null)
     {
-        return $this->client->get('topstories.json');
+        $params = [
+            'query' => [
+                'q' => $q
+            ]
+        ];
+        return $this->client->get('volumes', $params);
     }
 
     // create a new record in the database

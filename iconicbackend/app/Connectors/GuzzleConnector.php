@@ -20,14 +20,14 @@ class GuzzleConnector implements ConnectorInterface
     {
         try {
             // $request = $this->client->request('GET', 'products');
-            $request = $this->client->request('GET', $endpoint);
+            $request = $this->client->request('GET', $endpoint, $params);
             return $request->getBody(true)->getContents();
         } catch (\Exception $e) {
-            // return [
-            //     'statusCode' => $e->getCode(),
-            //     'message' => $e->getMessage()
-            // ];
-            throw new ProductException($e->getMessage(), $e->getCode(), $e);
+            return [
+                'statusCode' => $e->getCode(),
+                'message' => $e->getMessage()
+            ];
+            //throw new ProductException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }

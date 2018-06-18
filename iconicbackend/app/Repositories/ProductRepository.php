@@ -26,7 +26,7 @@ class ProductRepository implements RepositoryInterface
     }
 
     // Get all instances of model
-    public function all()
+    public function all($q = null, $startIndex = null)
     {
         return $this->client->get('products');
     }
