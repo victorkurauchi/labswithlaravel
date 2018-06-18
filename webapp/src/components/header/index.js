@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-// import { Link } from 'preact-router';
+import { Link } from 'preact-router';
 import style from './style.less';
 import Search from 'components/search';
 
@@ -7,7 +7,7 @@ export default class Header extends Component {
   render() {
     return (
       <header class={style.header}>
-        <h1>Iconic Catalog</h1>
+        <Link href="/"><h1>Iconic Catalog</h1></Link>
         <nav>
           {/* <Link href="/">Home</Link>
           <Link href="/profile">Me</Link>

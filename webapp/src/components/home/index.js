@@ -2,66 +2,77 @@ import { h, Component } from 'preact';
 import style from './style.less';
 import List from 'components/list';
 import Pagination from 'components/Pagination';
-// import { memoize } from 'decko';
 import axios from 'axios';
 
-const getBooks = (q, startIndex) => {
-  return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${q}&startIndex=${startIndex}`).then(response => response.data)
-}
+import { connect } from 'preact-redux';
+import reduce from '../../reducers';
+import * as actions from '../../actions';
 
-// make available to homepage REPL demo
-if (typeof window!=='undefined') window.getBooks = getBooks;
-
+@connect(reduce, actions)
 export default class Home extends Component {
-  state = {
-    books: localStorage._books || '',
-    currentPage: 1,
-    startIndex: 0,
-    q: 'harry potter'
-  };
+  getBooks() {
+    // Injected into props by Redux `connect()` call:
+    const { dispatch, q, startIndex } = this.props;
 
-  setBooks = (books, startIndex = 0, currentPage = 1) => {
-    // console.log('set books', books)
-    localStorage._books = books;
-    this.setState({ books, startIndex, currentPage });
-  };
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${q}&startIndex=${startIndex}`)
+      .then(response => this.props.loadBooksSuccess(response.data))
+      .catch(error => this.props.loadBooksFailure(error))
+  }
 
-  getPreviousPage(startIndex) {
-    // console.log('previous page')
-    // const currPage = this.state.currentPage - 1
-    getBooks(this.state.q, this.state.startIndex - 10).then(books => {
-      this.setBooks(books, this.state.startIndex - 10, currPage)
-    });
+  getPreviousPage() {
+    const currPage = this.props.currentPage - 1;
+    this.props.setPage(currPage);
+    this.props.setStartIndex(this.props.startIndex - 10);
+
+    // workaround for now ;/ could be using async/await
+    setTimeout(() => {
+      console.log('new index', this.props.startIndex);
+      this.getBooks();
+    }, 500);
   }
 
 
   getNextPage() {
-    // console.log(this.state)
-    // console.log('next page!', this.state.startIndex + 10, typeof (this.state.startIndex + 10))
-    const currPage = this.state.currentPage + 1
-    getBooks(this.state.q, this.state.startIndex + 10).then(books => {
-      this.setBooks(books, this.state.startIndex + 10, currPage)
-    });
+    const currPage = this.props.currentPage + 1;
+    this.props.setPage(currPage);
+    this.props.setStartIndex(this.props.startIndex + 10)
+
+    // workaround for now ;/ could be using async/await
+    setTimeout(() => {
+      console.log('new index', this.props.startIndex);
+      this.getBooks();
+    }, 500);
   }
 
   componentWillMount() {
   }
 
   componentDidMount() {
-    let { user, repo } = this.props;
-    getBooks(this.state.q, this.state.startIndex).then(this.setBooks);
+    let { user, repo, q, startIndex } = this.props;
+    this.getBooks();
   }
 
-  render({ user, repo, simple, children }, { books }) {
+  render({
+      todos,
+      books,
+      totalItems,
+      currentPage,
+      startIndex
+    }, {}) {
     return (
       <div class={style.wrapper}>
         <h1 class={style.title}>Catalog</h1>
 
-        <Pagination totalItems={books.totalItems} currentPage={this.state.currentPage}
+        <Pagination totalItems={totalItems} currentPage={currentPage}
           getPreviousPage={this.getPreviousPage.bind(this)} getNextPage={this.getNextPage.bind(this)}/>
 
         <nav>
-          <List items={books.items}>
+          <ul>
+            { todos.map(todo => (
+              <li key={todo.id} todo={todo} onRemove={this.removeTodo}>{todo.text}</li>
+            )) }
+          </ul>
+          <List items={books}>
           </List>
         </nav>
       </div>

@@ -1,34 +1,60 @@
-// import createStore from './lib/store';
-// import getDefaultLanguage from './lib/default-language';
-// import config from './config';
+import { createStore } from 'redux';
 
-// const SAVE = ['lang'];
+let ACTIONS = {
+  ADD_TODO: ({ todos, ...state }, { text }) => {
+    return {
+      todos: [...todos, {
+        id: Math.random().toString(36).substring(2),
+        text
+      }],
+      ...state
+    }
+  },
 
-// export default () => {
-//   let state = getSavedState();
+  FILTER_BOOKS: ({ books, ...state }, { book }) => ({
+    books: books.filter( i => i === book ),
+    ...state
+  }),
 
-//   if (state.lang !== '') {
-//     let langOverride = ((location.href.match(/[?&]lang=([a-z\-]+)/i) || [])[1] || '').toLowerCase();
-//     if (langOverride && config.languages[langOverride]) state.lang = langOverride;
+  SET_PAGE: ({ currentPage, ...state}, { page }) => {
+    return {
+      currentPage: page,
+      ...state
+    }
+  },
 
-//     if (!state.lang) state.lang = getDefaultLanguage(config.languages) || '';
-//   }
+  SET_START_INDEX: ({ startIndex, ...state }, { index }) => {
+    console.log('idnex to be set', index)
+    return {
+      startIndex: index,
+      ...state
+    }
+  },
 
-//   let store = createStore(state);
-//   store.subscribe(saveState);
-//   return store;
-// };
+  BOOKS_SUCCESS: ({ books, totalItems, ...state }, { result }) => {
+    return {
+      books: result.items,
+      totalItems: result.totalItems,
+      ...state
+    }
+  },
 
-// function saveState(state) {
-//   let saved = {};
-//   for (let i = SAVE.length; i--;) saved[SAVE[i]] = state[SAVE[i]];
-//   localStorage.state = JSON.stringify(saved);
-// }
+  BOOKS_FAILURE: ({ error, ...state }) => ({
+    error,
+    ...state
+  }),
+};
 
-// function getSavedState() {
-//   let state;
-//   try {
-//     state = JSON.parse(localStorage.state);
-//   } catch (e) {}
-//   return state || {};
-// }
+const INITIAL = {
+  todos: [],
+  books: [],
+  currentPage: 1,
+  startIndex: 0,
+  totalItems: 0,
+  q: 'harry potter',
+  error: null
+};
+
+export default createStore( (state, action) => (
+  action && ACTIONS[action.type] ? ACTIONS[action.type](state, action) : state
+), INITIAL, typeof devToolsExtension==='function' ? devToolsExtension() : undefined);

@@ -3,10 +3,16 @@
 import { h, render } from 'preact';
 import './style';
 
+import { Provider, connect } from 'preact-redux';
+import store from './store';
+
 let root;
 function init() {
   let App = require('./components/app').default;
-  root = render(<App />, document.body, root);
+  root = render(
+    <Provider store={store}>
+      <App />
+    </Provider>, document.body, root);
 }
 
 // register ServiceWorker via OfflinePlugin, for prod only:

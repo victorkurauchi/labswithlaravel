@@ -1,15 +1,28 @@
 import { h, Component } from 'preact';
-// import style from './style.less';
+import style from './style.less';
 
-export default class BookDetail extends Component {
-  state = {
-    count: 0
-  };
+import { connect } from 'preact-redux';
+import reduce from '../../reducers';
+import * as actions from '../../actions';
+
+function mapStateToProps(state) {
+  return { books: state.books }
+}
+
+// function mapDispatchToProps(dispatch) {
+//   return { actions: bindActionCreators(actionCreators, dispatch) }
+// }
+
+// @connect(reduce, actions, mapStateToProps)
+class BookDetail extends Component {
+  // state = {
+  //   count: 0
+  // };
 
   // update the current time
   updateTime = () => {
     let time = new Date().toLocaleString();
-    this.setState({ time });
+    // this.setState({ time });
   };
 
   // gets called when this route is navigated to
@@ -19,7 +32,7 @@ export default class BookDetail extends Component {
     this.updateTime();
 
     // every time we get remounted, increment a counter:
-    this.setState({ count: this.state.count+1 });
+    // this.setState({ count: this.state.count+1 });
   }
 
   // gets called just before navigating away from the route
@@ -29,8 +42,10 @@ export default class BookDetail extends Component {
 
   // Note: `user` comes from the URL, courtesy of our router
   render({ id }, { time, count }) {
+    console.log('state to props?', this.props.books);
+
     return (
-      <div>
+      <div class={style.detail}>
         <h1>Book: {id}</h1>
         <p>This is the book detail for a book with id {id}.</p>
 
@@ -40,3 +55,5 @@ export default class BookDetail extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(BookDetail);
