@@ -20,7 +20,7 @@ export default class Home extends Component {
     q: 'harry potter'
   };
 
-	setBooks = (books, startIndex = 0, currentPage = 1) => {
+  setBooks = (books, startIndex = 0, currentPage = 1) => {
     console.log('set', books)
     localStorage._books = books;
     this.setState({ books, startIndex, currentPage });
@@ -47,14 +47,14 @@ export default class Home extends Component {
   componentWillMount() {
   }
 
-	componentDidMount() {
+  componentDidMount() {
     let { user, repo } = this.props;
     getBooks(this.state.q, this.state.startIndex).then(this.setBooks);
   }
 
-	render({ user, repo, simple, children }, { books }) {
-		return (
-			<div class={style.wrapper}>
+  render({ user, repo, simple, children }, { books }) {
+    return (
+      <div class={style.wrapper}>
         <h1 class={style.title}>Catalog</h1>
 
         <Pagination totalItems={books.totalItems} currentPage={this.state.currentPage}
@@ -65,6 +65,6 @@ export default class Home extends Component {
           </List>
         </nav>
       </div>
-		);
-	}
+    );
+  }
 };
