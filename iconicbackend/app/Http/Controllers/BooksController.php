@@ -25,7 +25,7 @@ class BooksController extends Controller
         $q = 'harry potter';
         $startIndex = 0;
         $result = $this->repo->all($q, $startIndex);
-        return response()->json($result);
+        return response()->json(json_decode($result));
     }
 
     /**

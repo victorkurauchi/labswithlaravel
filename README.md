@@ -21,6 +21,8 @@ My alternative: working with some external API, i decided for https://developers
 
 `localhost:8000/api/products`
 
+`localhost:8000/api/books`
+
 ## API - testing with PHP Unit
 
 Test files are located in ./tests/Unit, so we run from command line
