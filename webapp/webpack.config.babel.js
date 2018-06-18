@@ -10,6 +10,8 @@ const ENV = process.env.NODE_ENV || 'development';
 
 const CSS_MAPS = ENV!=='production';
 
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
 	context: path.resolve(__dirname, "src"),
 	entry: './index.js',
@@ -18,7 +20,23 @@ module.exports = {
 		path: path.resolve(__dirname, "build"),
 		publicPath: '/',
 		filename: 'bundle.js'
-	},
+  },
+
+  optimization: {
+    minimizer: [
+      // we specify a custom UglifyJsPlugin here to get source maps in production
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: false,
+          ecma: 6,
+          mangle: true
+        },
+        sourceMap: true
+      })
+    ]
+  },
 
 	resolve: {
 		extensions: ['.jsx', '.js', '.json', '.less'],
@@ -134,35 +152,35 @@ module.exports = {
 			{ from: './favicon.ico', to: './' }
 		])
 	]).concat(ENV==='production' ? [
-		new webpack.optimize.UglifyJsPlugin({
-			output: {
-				comments: false
-			},
-			compress: {
-				unsafe_comps: true,
-				properties: true,
-				keep_fargs: false,
-				pure_getters: true,
-				collapse_vars: true,
-				unsafe: true,
-				warnings: false,
-				screw_ie8: true,
-				sequences: true,
-				dead_code: true,
-				drop_debugger: true,
-				comparisons: true,
-				conditionals: true,
-				evaluate: true,
-				booleans: true,
-				loops: true,
-				unused: true,
-				hoist_funs: true,
-				if_return: true,
-				join_vars: true,
-				cascade: true,
-				drop_console: true
-			}
-		}),
+		// new webpack.optimize.UglifyJsPlugin({
+		// 	output: {
+		// 		comments: false
+		// 	},
+		// 	compress: {
+		// 		unsafe_comps: true,
+		// 		properties: true,
+		// 		keep_fargs: false,
+		// 		pure_getters: true,
+		// 		collapse_vars: true,
+		// 		unsafe: true,
+		// 		warnings: false,
+		// 		screw_ie8: true,
+		// 		sequences: true,
+		// 		dead_code: true,
+		// 		drop_debugger: true,
+		// 		comparisons: true,
+		// 		conditionals: true,
+		// 		evaluate: true,
+		// 		booleans: true,
+		// 		loops: true,
+		// 		unused: true,
+		// 		hoist_funs: true,
+		// 		if_return: true,
+		// 		join_vars: true,
+		// 		cascade: true,
+		// 		drop_console: true
+		// 	}
+		// }),
 
 		new OfflinePlugin({
 			relativePaths: false,
