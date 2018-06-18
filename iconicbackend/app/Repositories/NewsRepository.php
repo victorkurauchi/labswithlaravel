@@ -14,7 +14,7 @@ class ProductRepository implements RepositoryInterface
     public function __construct()
     {
         $config = [
-            'base_uri' =>  'https://eve.theiconic.com.au/catalog/',
+            'base_uri' =>  'https://hacker-news.firebaseio.com/v0/',
             'timeout' => 60,
             'stream' => true,
             'headers' => [
@@ -28,7 +28,7 @@ class ProductRepository implements RepositoryInterface
     // Get all instances of model
     public function all()
     {
-        return $this->client->get('products');
+        return $this->client->get('topstories.json');
     }
 
     // create a new record in the database

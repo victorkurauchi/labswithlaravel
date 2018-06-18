@@ -1,9 +1,13 @@
 import { h, Component } from 'preact';
 import { Router } from 'preact-router';
+// import { Provider } from '../lib/store';
+// import createStore from '../store';
 
 import Header from './header';
 import Home from './home';
 import Profile from './profile';
+
+// let store = createStore();
 
 export default class App extends Component {
 	/** Gets fired when the route changes.
@@ -12,18 +16,18 @@ export default class App extends Component {
 	 */
 	handleRoute = e => {
 		this.currentUrl = e.url;
-	};
+  };
 
-	render() {
+  render() {
 		return (
-			<div id="app">
-				<Header />
-				<Router onChange={this.handleRoute}>
-					<Home path="/" />
-					<Profile path="/profile/" user="me" />
-					<Profile path="/profile/:user" />
-				</Router>
-			</div>
+      <div id="app">
+        <Header />
+        <Router onChange={this.handleRoute}>
+          <Home path="/" />
+          <Profile path="/profile/" user="me" />
+          <Profile path="/profile/:user" />
+        </Router>
+      </div>
 		);
 	}
 }

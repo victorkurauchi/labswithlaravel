@@ -5,6 +5,7 @@ import autoprefixer from 'autoprefixer';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
 import path from 'path';
+
 const ENV = process.env.NODE_ENV || 'development';
 
 const CSS_MAPS = ENV!=='production';
@@ -12,7 +13,7 @@ const CSS_MAPS = ENV!=='production';
 module.exports = {
 	context: path.resolve(__dirname, "src"),
 	entry: './index.js',
-
+  mode: ENV,
 	output: {
 		path: path.resolve(__dirname, "build"),
 		publicPath: '/',

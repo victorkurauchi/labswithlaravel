@@ -17,7 +17,8 @@ export default class Search extends Component {
 		return (
 			<div class={style.search}>
 				<input class={style.input} value={text} onInput={this.setText} />
-				<button type="buton" onClick={this.search}>Go!</button>
+				<button class={style.button} type="buton" onClick={this.search}>Search</button>
+        <small>Suggestion: marvel</small>
 			</div>
 		);
 	}

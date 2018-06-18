@@ -2,9 +2,11 @@ Project using SOLID principals
 
 Built with Laravel and Preactjs
 
-Important: I'm having problems trying to connect the API, i think it might be something related to my location. there's a 5 seconds Ddos check.
+Important: I'm having problems trying to connect the API, i think it might be something related to my location. there's a 5 seconds Ddos check when i acess from my browser, and via postman the result is this exact html instead json response.
 
-So I implemented an Exception that returns a fallback for me in case my http call fails. The fallback is the API result when accessed on the browser.
+So I implemented an Exception that returns a fallback for me in case my http call fails. The fallback is the API result when accessed on the browser, but it's not possible to implement the other methods yet with paginations/filter criteria/etc.
+
+My alternative: working with some external API, i decided for https://developers.google.com/books/docs/v1/using, because it's a similar concept for this test: Catalog of products (in this case, books)
 
 ## Requirements:
 
@@ -27,7 +29,15 @@ Test files are located in ./tests/Unit, so we run from command line
 
 `cd webapp`
 
+`npm i`
+
 `npm run dev`
+
+## Web - to do
+
+* state management with redux.
+* eslint tabs to spaces
+* async await
 
 ### SOLID Principals
 

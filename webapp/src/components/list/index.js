@@ -1,19 +1,32 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 import style from './style.less';
-// import Pagination from 'components/pagination';
-// import ListItem from 'components/listitem';
+import ListItem from 'components/listitem';
 
-export default () => {
-	return (
-		<main class={style.list}>
-			{/* <Pagination page={page} maxPages={Math.ceil(max / ITEMS_PER_PAGE)} type={type} /> */}
-			<div>
-				<span>Price</span>
-				<span>Name</span>
-				<span>SKU</span>
-				<span>Brand Name</span>
-				<span>Image</span>
-			</div>
-		</main>
-	);
+export default class List extends Component {
+  renderedBooks(books) {
+    console.log('redenring', books)
+    if (!books || !books.length) {
+      return (<div></div>)
+    }
+    return (
+      books.map(book => {
+        return <div>{book.title}</div>
+      })
+    )
+  }
+
+  do() {
+
+  }
+
+  render(props, state) {
+    return (
+      <div>
+        { props.items && props.items.length ? props.items.map((item, index) => (
+          <ListItem item={item} onAction={this.do} key={index} index={index} />)
+        ) : null }
+      </div>
+    )
+  }
 };
+

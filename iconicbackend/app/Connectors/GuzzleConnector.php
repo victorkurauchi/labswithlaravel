@@ -10,19 +10,10 @@ use App\Exceptions\ProductException;
 
 class GuzzleConnector implements ConnectorInterface
 {
-    public function __construct()
+    public function __construct(array $config)
     {
         // config object would be the best approach.
-        $this->client = new Client([
-            // 'base_uri' => 'https://jsonplaceholder.typicode.com/',
-            'base_uri' =>  'https://eve.theiconic.com.au/catalog/',
-            'timeout' => 60,
-            'stream' => true,
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ]
-        ]);
+        $this->client = new Client($config);
     }
 
     public function get($endpoint, $params = null)
