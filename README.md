@@ -35,6 +35,8 @@ Test files are located in ./tests/Unit, so we run from command line
 
 `npm run dev`
 
+`localhost:8080`
+
 ## Web - to do
 
 * state management with redux.
