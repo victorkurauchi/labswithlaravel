@@ -42,7 +42,7 @@ Test files are located in ./tests/Unit, so we run from command line
 ## Web - to do
 
 * ~~state management with redux.~~
-* eslint tabs to spaces
+* ~~eslint tabs to spaces~~
 * async await
 
 ### SOLID Principals
